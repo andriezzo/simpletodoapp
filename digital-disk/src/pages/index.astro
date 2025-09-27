@@ -17,10 +17,19 @@ const userFiles = await Promise.all(
 );
 
 // 3. Map files to clean user objects, extracting the frontmatter 'data'
-const users = userFiles.map(file => ({
-    // Type assertion so TypeScript knows about frontmatter
-    ...(file as { frontmatter: any }).frontmatter,
-}));
+const users = userFiles.map((file, idx) => {
+  const { frontmatter } = file as { frontmatter: any };
+  // Extract user folder name from the file path
+  const userPathMatch = Object.keys(userGlob)[idx].match(/users\/([^/]+)\//);
+  const userFolder = userPathMatch ? userPathMatch[1] : '';
+  return {
+    ...frontmatter,
+    // Now the photo is in /images/users/[user-folder]-[photo]
+    photo: userFolder && frontmatter.photo
+      ? `/images/users/${userFolder}-${frontmatter.photo}`
+      : frontmatter.photo,
+  };
+});
 
 // The users array is now available to pass to the React component
 ---

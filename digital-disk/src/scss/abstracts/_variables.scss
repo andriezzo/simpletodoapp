@@ -1,20 +1,130 @@
+
+/* A CSS Framework built on Custom Properties */
 :root {
-    // --- Colors ---
-    --color-primary: #5A67D8;         
-    --color-primary-dark: #434190;
-    --color-background: #F4F7FC;      // Light Gray Background
-    --color-surface: #FFFFFF;         // White Card/Header/Footer Surface
-    --color-text: #2D3748;            // Primary Dark Text
-    --color-text-light: #718096;      // Secondary Light Text
-    --color-border: #E2E8F0;          // Border lines
+  /*
+    2. Color Palette
+  */
 
-    // --- Typography ---
-    --font-stack: 'Inter', sans-serif;
-    --font-size-h1: 2.5rem;
+  /* Black and White Colors */
+  --c-black-1: #242331;
+  --c-black-2: #141414;
+  --c-black-3: #100007;
+  --c-white-1: #f2f4f8;
+  --c-white-2: #fdfffb;
+  --c-white-3: #fafcfd;
+  
+  /* Semi-transparent black and white for overlays */
+  --c-white-transparent-1: rgba(255, 255, 255, 0.8);
+  --c-white-transparent-2: rgba(255, 255, 255, 0.4);
+  --c-white-transparent-3: rgba(255, 255, 255, 0.2);
+  
+  --c-black-transparent-1: rgba(0, 0, 0, 0.5);
+  --c-black-transparent-2: rgba(0, 0, 0, 0.3);
+  --c-black-transparent-3: rgba(0, 0, 0, 0.2);
+  --c-black-transparent-4: rgba(0, 0, 0, 0.1);
 
-    // --- Spacing (Using a simple scale) ---
-    --spacing-1: 0.25rem;  // 4px
-    --spacing-3: 0.75rem;  // 12px
-    --spacing-6: 1.5rem;   // 24px
-    --spacing-8: 2rem;     // 32px
+  /* Grey Tones */
+  --c-grey-1: #c3c3c3;
+  --c-grey-2: #d6d6d6;
+  --c-grey-3: #e0e0e0;
+  --c-grey-4: #eaeaea;
+  --c-grey-5: #f4f4f4;
+
+  /*
+    3. Relative Color Palettes
+    Using oklch() with Relative Color Syntax for dynamic color generation.
+    L = Lightness, C = Chroma (Saturation), H = Hue
+  */
+
+  /* Blue Palette */
+  --c-blue-base: oklch(23% 0.1 254);
+  --c-blue-light-1: oklch(from var(--c-blue-base) calc(L + 0.1) calc(C * 1.1) H);
+  --c-blue-light-2: oklch(from var(--c-blue-base) calc(L + 0.25) calc(C * 0.5) H); /* Exaggerated and desaturated */
+  --c-blue-dark-1: oklch(from var(--c-blue-base) calc(L - 0.08) C H);
+  --c-blue-dark-2: oklch(from var(--c-blue-base) calc(L - 0.15) C H); /* Exaggerated darker */
+
+  /* Violet Palette */
+  --c-violet-base: oklch(36% 0.09 292);
+  --c-violet-light-1: oklch(from var(--c-violet-base) calc(L + 0.1) calc(C * 0.9) H);
+  --c-violet-light-2: oklch(from var(--c-violet-base) calc(L + 0.2) calc(C * 0.5) H); /* Exaggerated and desaturated */
+  --c-violet-dark-1: oklch(from var(--c-violet-base) calc(L - 0.01) C H);
+  --c-violet-dark-2: oklch(from var(--c-violet-base) calc(L - 0.02) C H); /* Exaggerated darker */
+
+  /* Orange Palette */
+  --c-orange-base: oklch(57% 0.2 48);
+  --c-orange-light-1: oklch(from var(--c-orange-base) calc(L + 0.1) calc(C * 0.5) H);
+  --c-orange-light-2: oklch(from var(--c-orange-base) calc(L + 0.3) calc(C * 0.2) H); /* Exaggerated and desaturated */
+  --c-orange-dark-1: oklch(from var(--c-orange-base) calc(L - 0.08) C H);
+  --c-orange-dark-2: oklch(from var(--c-orange-base) calc(L - 0.15) C H); /* Exaggerated darker */
+  
+  /* Red Palette */
+  --c-red-base: #AF2D20;
+  --c-red-light-1: #d03626;
+  --c-red-light-2: #e26e62;
+  --c-red-dark-1: #8e241a;
+  --c-red-dark-2: #6d1c14;
+  
+  /* Green Palette */
+  --c-green-base: #13AD4E;
+  --c-green-light-1: hsla(144, 76%, 60%, 1); /* A lighter green */
+  --c-green-light-2: hsla(144, 76%, 75%, 1); /* An exaggerated lighter green */
+  --c-green-dark-1: #006400;
+  --c-green-dark-2: hsla(120, 100%, 10%, 1); /* An exaggerated darker green */
+
+
+  /*
+    4. Main and Secondary Colors
+    Using the new variable sets for consistency
+  */
+  --c-primary-base: var(--c-orange-base);
+  --c-primary-dark-1: var(--c-orange-dark-1);
+  --c-primary-dark-2: var(--c-orange-dark-2);
+  --c-primary-light-1: var(--c-orange-light-1);
+  --c-primary-light-2: var(--c-orange-light-2);
+
+  --c-secondary-base: var(--c-violet-base);
+  --c-secondary-dark-1: var(--c-violet-dark-1);
+  --c-secondary-dark-2: var(--c-violet-dark-2);
+  --c-secondary-light-1: var(--c-violet-light-1);
+  --c-secondary-light-2: var(--c-violet-light-2);
+
+
+
+  /*
+    3. Typography
+  */
+
+  /* Font Families */
+  --ff-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ff-serif: "Georgia", "Times New Roman", serif;
+
+  /* Font Sizes */
+  --fs-h1: 3.052rem;
+  --fs-h2: 2.441rem;
+  --fs-h3: 1.953rem;
+  --fs-h4: 1.563rem;
+  --fs-body: 1rem;
+  --fs-small: 0.8rem;
+
+  /* Font Weights */
+  --fw-bold: 700;
+  --fw-semibold: 600;
+
+  /*
+    4. Spacing
+  */
+  --space-xxs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 0.75rem;
+  --space-m: 1rem;
+  --space-l: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 3rem;
+
+  /*
+    5. Border Radius
+  */
+  --br-s: 4px;
+  --br-m: 8px;
+  --br-l: 16px;
 }

@@ -2,7 +2,7 @@
 id: 'u1'
 name: 'Alex'
 jobTitle: 'Project Manager'
-photo: 'https://placehold.co/40x40/FF5733/FFFFFF?text=A'
+photo: 'user-picture-6.jpg'
 favoriteColor: '#FF5733'
 ---
 

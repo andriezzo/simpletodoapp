@@ -195,7 +195,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
             <h1 className="todo-header">Task Board</h1>
             
             {/* Input Section */}
-            <div className="input-section card">
+            <div className="input-section block">
                 <input 
                     type="text" 
                     className="task-input"
@@ -321,12 +321,6 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
 // --- 3. Main App Component (Entry Point) ---
 // This handles global state and layout structure.
 export default function TodoApp({ users }) {
-    // Hardcoded list of users for assignment
-    // const users = [
-    //     { name: 'Alice', photo: 'https://placehold.co/40x40/FF5733/FFFFFF?text=A', jobTitle: 'Project Manager' },
-    //     { name: 'Bob', photo: 'https://placehold.co/40x40/33C1FF/FFFFFF?text=B', jobTitle: 'Developer' },
-    //     { name: 'Charlie', photo: 'https://placehold.co/40x40/8A33FF/FFFFFF?text=C', jobTitle: 'UI/UX Designer' },
-    // ];
 
     // State management for the entire list, loading from localStorage on startup
     const [todos, setTodos] = useState(() => {

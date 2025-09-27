@@ -1,10 +1,15 @@
-// Base and Utility Styles
+@use "abstracts/variables"; 
+
 @use "base/reset";
+@use "base/general";
+
 @use "layout/base";
+
 
 // Component-specific Styles
 @use "components/header"; // Import the new header styles
 @use "components/footer"; // Import the new footer styles
+@use "components/forms";
 @use "components/button";
 
 // Page-specific Styles

@@ -1,0 +1,32 @@
+/* Base Layout Styles */
+body {
+    // Using CSS Custom Properties (var(--...))
+    font-family: var(--font-stack);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+
+.block {
+    background-color: var(--c-white-1);
+    border: 1px solid var(--c-grey-1);
+    border-radius: var(--br-m);
+    box-shadow: 0 2px 4px var(--c-black-transparent-1);
+    padding: var(--space-m);
+    
+}
