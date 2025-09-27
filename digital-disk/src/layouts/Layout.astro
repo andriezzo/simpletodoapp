@@ -1,0 +1,40 @@
+---
+// Layout Component Imports
+import Head from '../components/Head.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Layout Props
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+
+// SCSS Import (Ensure the path is correct based on your file tree: src/layouts -> src/scss)
+import '../scss/styles.scss';
+---
+
+<!doctype html>
+<html lang="en">
+	<!-- Renders the Head component, passing in required props -->
+	<Head title={title} description={description} />
+	
+	<body>
+        <!-- Global Header -->
+        <Header />
+        
+        <!-- 
+            MAIN CONTENT AREA
+            The <slot /> is essential! This is where your <TodoApp /> component 
+            from index.astro will be inserted.
+        -->
+		<main>
+			<slot />
+		</main>
+        
+        <!-- Global Footer -->
+        <Footer />
+	</body>
+</html>

@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TodoApp from '../components/TodoApp.jsx';
+import '../scss/styles.scss';
+
+const title = "Todo Dashboard";
+const description = "A simple, collaborative task management application.";
+
+// 1. Fetch all user data from the directory structure using the modern import.meta.glob.
+// This function returns an object where keys are file paths and values are import functions.
+const userGlob = import.meta.glob('../content/users/**/userdata.md');
+
+// 2. Execute all importer functions and wait for them to resolve the modules (the file content).
+// This is necessary because the files are loaded asynchronously.
+const userFiles = await Promise.all(
+    Object.values(userGlob).map(importer => importer())
+);
+
+// 3. Map files to clean user objects, extracting the frontmatter 'data'
+const users = userFiles.map(file => ({
+    // Type assertion so TypeScript knows about frontmatter
+    ...(file as { frontmatter: any }).frontmatter,
+}));
+
+// The users array is now available to pass to the React component
+---
+<Layout title={title} description={description}>
+    {/* Pass the fetched users data as a prop to the React component */}
+    <TodoApp users={users} client:load />
+</Layout>

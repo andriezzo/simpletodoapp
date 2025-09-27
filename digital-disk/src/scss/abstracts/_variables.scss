@@ -1,0 +1,20 @@
+:root {
+    // --- Colors ---
+    --color-primary: #5A67D8;         
+    --color-primary-dark: #434190;
+    --color-background: #F4F7FC;      // Light Gray Background
+    --color-surface: #FFFFFF;         // White Card/Header/Footer Surface
+    --color-text: #2D3748;            // Primary Dark Text
+    --color-text-light: #718096;      // Secondary Light Text
+    --color-border: #E2E8F0;          // Border lines
+
+    // --- Typography ---
+    --font-stack: 'Inter', sans-serif;
+    --font-size-h1: 2.5rem;
+
+    // --- Spacing (Using a simple scale) ---
+    --spacing-1: 0.25rem;  // 4px
+    --spacing-3: 0.75rem;  // 12px
+    --spacing-6: 1.5rem;   // 24px
+    --spacing-8: 2rem;     // 32px
+}

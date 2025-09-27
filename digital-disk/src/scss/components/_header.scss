@@ -1,0 +1,19 @@
+// Import your variables from the abstracts folder.
+// We still use @use to import the file, but rely on browser CSS Custom Properties (var(--...))
+@use '../abstracts/variables' as var;
+
+.header {
+  // Using CSS Custom Properties (var(--...))
+  padding: var(--spacing-3);
+  background-color: var(--color-surface); 
+  color: var(--color-text); 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__logo {
+    font-size: var(--font-size-h1);
+    font-family: var(--font-stack);
+    font-weight: bold;
+  }
+}

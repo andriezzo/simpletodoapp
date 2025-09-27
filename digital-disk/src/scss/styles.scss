@@ -1,0 +1,11 @@
+// Base and Utility Styles
+@use "base/reset";
+@use "layout/base";
+
+// Component-specific Styles
+@use "components/header"; // Import the new header styles
+@use "components/footer"; // Import the new footer styles
+@use "components/button";
+
+// Page-specific Styles
+// This is where styles for your video grid or video player page would go
