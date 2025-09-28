@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
 
-// Component for the delete icon (inline SVG)
-const DeleteIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="delete-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-    </svg>
-);
 
 // --- 1. TodoSummary Component (Left Sidebar) ---
 const TodoSummary = ({ todos, setFilter, users }) => {
@@ -191,7 +185,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
     };
 
     return (
-        <div className="">
+        <div className="todo-section">
             <h1 className="page-title">Task Board</h1>
             
             {/* Input Section */}
@@ -246,7 +240,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                 </div>
 
                 <button 
-                    className="add-button button secondary" 
+                    className="add-button button" 
                     onClick={handleAddTodo}
                     disabled={inputValue.trim() === ''}
                 >
@@ -312,7 +306,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                             </div>
 
                             <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>
-                                <DeleteIcon />
+                                
                             </button>
                         </li>
                     ))
