@@ -28,11 +28,11 @@ const TodoSummary = ({ todos, setFilter, users }) => {
         .slice(0, 5); // Top 5 tags
 
     return (
-        <aside className="summary-card">
-            <h2 className="summary-header">Dashboard Summary</h2>
+        <aside className=" summary">
+            <h2 className="title">Dashboard Summary</h2>
             
-            <section className="stat-section">
-                <h3 className="section-title">Task Status</h3>
+            <section className="stat-section container">
+                <h3 className="title">Task Status</h3>
                 <div className="status-grid">
                     <button className="stat-box total" onClick={() => setFilter('all')}>
                         <span className="stat-count">{total}</span>
@@ -49,8 +49,8 @@ const TodoSummary = ({ todos, setFilter, users }) => {
                 </div>
             </section>
 
-            <section className="user-section">
-                <h3 className="section-title">Tasks by User</h3>
+            <section className="container user-section">
+                <h3 className="title">Tasks by User</h3>
                 <ul className="user-list">
                     {tasksByUser.map(user => (
                         <li key={user.name} className="user-item">
@@ -69,8 +69,8 @@ const TodoSummary = ({ todos, setFilter, users }) => {
                 </ul>
             </section>
 
-            <section className="tag-section">
-                <h3 className="section-title">Top Tags</h3>
+            <section className="container tag-section">
+                <h3 className="title">Top Tags</h3>
                 <div className="tag-list">
                     {sortedTags.length > 0 ? (
                         sortedTags.map(([tag, count]) => (
@@ -79,7 +79,7 @@ const TodoSummary = ({ todos, setFilter, users }) => {
                                 className="tag-item"
                                 onClick={() => setFilter(`#${tag}`)}
                             >
-                                <span className="tag-name">#{tag}</span>
+                                <span className="tag-name">{tag}</span>
                                 <span className="tag-count">({count})</span>
                             </button>
                         ))
@@ -132,13 +132,13 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
     const handleTagInputBlur = () => { setTimeout(() => setShowTags(false), 200); };
     const handleTagClick = (tag) => {
       setTagValue(prevValue => {
-          // Remove # if present, add it back to the beginning if it was empty
+          // Remove # if present, add as plain text
           const cleanedTag = tag.replace(/^#/, '');
           if (prevValue.trim() === '') {
-              return `#${cleanedTag}`;
+              return `${cleanedTag}`;
           } else {
               // Append a comma and a new tag
-              return `${prevValue.trim()}, #${cleanedTag}`;
+              return `${prevValue.trim()}, ${cleanedTag}`;
           }
       });
       setShowTags(false);
@@ -191,11 +191,13 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
     };
 
     return (
-        <div className="todo-container">
-            <h1 className="todo-header">Task Board</h1>
+        <div className="">
+            <h1 className="page-title">Task Board</h1>
             
             {/* Input Section */}
             <div className="input-section block">
+                <div className="input-group">
+
                 <input 
                     type="text" 
                     className="task-input"
@@ -203,15 +205,17 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()}
-                />
+                />  
+                </div>
                 
-                <div className="input-meta">
+                
+                <div className="input-group meta-inputs">
                     {/* Tags Input with Autocomplete */}
                     <div className="tags-input-group">
                         <input 
                             type="text" 
                             className="tags-input"
-                            placeholder="Add tags (e.g., #urgent, #design)" 
+                            placeholder="Add tags (e.g., urgent, design)" 
                             value={tagValue}
                             onChange={(e) => setTagValue(e.target.value)}
                             onFocus={handleTagInputFocus}
@@ -226,7 +230,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                                         // Use onMouseDown to trigger before input blur
                                         onMouseDown={(e) => { e.preventDefault(); handleTagClick(tag); }}
                                     >
-                                        #{tag}
+                                        {tag}
                                     </span>
                                 ))}
                             </div>
@@ -242,7 +246,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                 </div>
 
                 <button 
-                    className="add-button" 
+                    className="add-button button secondary" 
                     onClick={handleAddTodo}
                     disabled={inputValue.trim() === ''}
                 >
@@ -293,7 +297,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                                     <div className="todo-tags">
                                         {todo.tags && todo.tags.map(tag => (
                                             <span key={tag} className="tag-chip" onClick={() => setFilter(`#${tag}`)}>
-                                                #{tag}
+                                                {tag}
                                             </span>
                                         ))}
                                     </div>
@@ -389,7 +393,7 @@ export default function TodoApp({ users }) {
     };
 
     return (
-        <div className="dashboard-grid">
+        <div className="dashboard-grid container">
             
             {/* Left side: Summary/Dashboard */}
             <TodoSummary todos={todos} setFilter={setFilter} users={users} />
