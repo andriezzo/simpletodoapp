@@ -45,15 +45,15 @@
 
   /* Violet Palette */
   --c-violet-base: oklch(36% 0.09 292);
-  --c-violet-light-1: oklch(from var(--c-violet-base) calc(L + 0.1) calc(C * 0.9) H);
-  --c-violet-light-2: oklch(from var(--c-violet-base) calc(L + 0.2) calc(C * 0.5) H); /* Exaggerated and desaturated */
+  --c-violet-light-1: oklch(from var(--c-violet-base) calc(L + 0.2) calc(C * 0.7) H);
+  --c-violet-light-2: oklch(from var(--c-violet-base) calc(L + 0.6) calc(C * 0.3) H); /* Exaggerated and desaturated */
   --c-violet-dark-1: oklch(from var(--c-violet-base) calc(L - 0.01) C H);
   --c-violet-dark-2: oklch(from var(--c-violet-base) calc(L - 0.02) C H); /* Exaggerated darker */
 
   /* Orange Palette */
   --c-orange-base: oklch(57% 0.2 48);
-  --c-orange-light-1: oklch(from var(--c-orange-base) calc(L + 0.1) calc(C * 0.5) H);
-  --c-orange-light-2: oklch(from var(--c-orange-base) calc(L + 0.3) calc(C * 0.2) H); /* Exaggerated and desaturated */
+  --c-orange-light-1: oklch(from var(--c-orange-base) calc(L + 0.2) calc(C * 0.7) H);
+  --c-orange-light-2: oklch(from var(--c-orange-base) calc(L + 0.6) calc(C * 0.3) H); /* Exaggerated and desaturated */
   --c-orange-dark-1: oklch(from var(--c-orange-base) calc(L - 0.08) C H);
   --c-orange-dark-2: oklch(from var(--c-orange-base) calc(L - 0.15) C H); /* Exaggerated darker */
   
@@ -67,7 +67,7 @@
   /* Green Palette */
   --c-green-base: #13AD4E;
   --c-green-light-1: hsla(144, 76%, 60%, 1); /* A lighter green */
-  --c-green-light-2: hsla(144, 76%, 75%, 1); /* An exaggerated lighter green */
+  --c-green-light-2: hsla(144, 76%, 96%, 1); /* An exaggerated lighter green */
   --c-green-dark-1: #006400;
   --c-green-dark-2: hsla(120, 100%, 10%, 1); /* An exaggerated darker green */
 

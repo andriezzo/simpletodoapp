@@ -4,6 +4,7 @@
 @use "base/general";
 
 @use "layout/base";
+@use "layout/blocks";
 
 
 // Component-specific Styles
@@ -11,6 +12,7 @@
 @use "components/footer"; // Import the new footer styles
 @use "components/forms";
 @use "components/button";
+@use "components/dashboard";
 
 // Page-specific Styles
 // This is where styles for your video grid or video player page would go

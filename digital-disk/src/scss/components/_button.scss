@@ -1,0 +1,35 @@
+/* Base button style (used for general actions) */
+.add-button, .filter-btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+    user-select: none;
+}
+
+.add-button {
+    background-color: var(--c-primary-dark-1);
+    color: var(--c-white-2) ;
+    box-shadow: 0 1px 2px var(--c-black-transparent-2);
+
+    border-radius: var(--br-m);
+
+    &:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px);
+    }
+    
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px var(--c-black-transparent-4);
+    }
+
+    &:disabled {
+        background-color: var(--c-primary-light-1);
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
