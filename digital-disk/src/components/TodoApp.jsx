@@ -19,7 +19,7 @@ const TodoSummary = ({ todos, setFilter, users }) => {
 
     const sortedTags = Object.entries(tags)
         .sort(([, countA], [, countB]) => countB - countA)
-        .slice(0, 5); // Top 5 tags
+        .slice(0, 10); // Top 10 tags
 
     return (
         <aside className=" summary">
