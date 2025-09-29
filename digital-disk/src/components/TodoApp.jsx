@@ -55,7 +55,7 @@ const TodoSummary = ({ todos, setFilter, users }) => {
                                     <span className="user-job">{user.jobTitle}</span>
                                 </div>
                             </div>
-                            <button className="user-count" onClick={() => setFilter(`@${user.name}`)}>
+                            <button className="user-count" onClick={() => setFilter(user.name)}>
                                 {user.activeTasks} Active
                             </button>
                         </li>
@@ -71,7 +71,7 @@ const TodoSummary = ({ todos, setFilter, users }) => {
                             <button 
                                 key={tag} 
                                 className="tag-item"
-                                onClick={() => setFilter(`#${tag}`)}
+                                onClick={() => setFilter(tag)}
                             >
                                 <span className="tag-name">{tag}</span>
                                 <span className="tag-count">({count})</span>
@@ -101,13 +101,11 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
         if (filter === 'completed') {
             return todos.filter(todo => todo.completed);
         }
-        if (filter.startsWith('#')) {
-            const tag = filter.substring(1).toLowerCase();
-            return todos.filter(todo => todo.tags.map(t => t.toLowerCase()).includes(tag));
+        if (uniqueTags.includes(filter)) {
+            return todos.filter(todo => todo.tags.map(t => t.toLowerCase()).includes(filter.toLowerCase()));
         }
-        if (filter.startsWith('@')) {
-            const user = filter.substring(1);
-            return todos.filter(todo => todo.assignedTo.includes(user));
+        if (users.some(u => u.name === filter)) {
+            return todos.filter(todo => todo.assignedTo.includes(filter));
         }
         return todos;
     };
@@ -126,14 +124,12 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
     const handleTagInputBlur = () => { setTimeout(() => setShowTags(false), 200); };
     const handleTagClick = (tag) => {
       setTagValue(prevValue => {
-          // Remove # if present, add as plain text
-          const cleanedTag = tag.replace(/^#/, '');
-          if (prevValue.trim() === '') {
-              return `${cleanedTag}`;
-          } else {
-              // Append a comma and a new tag
-              return `${prevValue.trim()}, ${cleanedTag}`;
-          }
+        const cleanedTag = tag.replace(/^#/, '');
+        if (prevValue.trim() === '') {
+            return `${cleanedTag}`;
+        } else {
+            return `${prevValue.trim()}, ${cleanedTag}`;
+        }
       });
       setShowTags(false);
     };
@@ -160,8 +156,8 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
         filter === 'all' ? 'All Tasks' :
         filter === 'active' ? 'Active Tasks' :
         filter === 'completed' ? 'Completed Tasks' :
-        filter.startsWith('#') ? `Tag: ${filter}` :
-        filter.startsWith('@') ? `Assigned to: ${filter}` : 'Filtered Tasks';
+        uniqueTags.includes(filter) ? `Tag: ${filter}` :
+        users.some(u => u.name === filter) ? `Assigned to: ${filter}` : 'Filtered Tasks';
         
     // Component for handling user assignment selection
     const UserAssignment = ({ users, selectedUsers, onToggle }) => {
@@ -176,6 +172,11 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                             className={`user-chip ${selectedNames.includes(user.name) ? 'active' : ''}`}
                             onClick={() => onToggle(user)}
                         >
+                            <img
+                                src={user.photo}
+                                alt={user.name}
+                                className="user-avatar"
+                            />
                             {selectedNames.includes(user.name) ? '✔' : ''} {user.name}
                         </button>
                     ))}
@@ -290,17 +291,27 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                                 <div className="todo-meta-details">
                                     <div className="todo-tags">
                                         {todo.tags && todo.tags.map(tag => (
-                                            <span key={tag} className="tag-chip" onClick={() => setFilter(`#${tag}`)}>
+                                            <span key={tag} className="tag-chip" onClick={() => setFilter(tag)}>
                                                 {tag}
                                             </span>
                                         ))}
                                     </div>
                                     <div className="todo-assignees">
-                                        {todo.assignedTo && todo.assignedTo.map(name => (
-                                            <span key={name} className="assignee-chip" onClick={() => setFilter(`@${name}`)}>
-                                                @{name}
-                                            </span>
-                                        ))}
+                                        {todo.assignedTo && todo.assignedTo.map(name => {
+                                            const user = users.find(u => u.name === name);
+                                            return (
+                                                <span key={name} className="assignee-chip" onClick={() => setFilter(`${name}`)}>
+                                                    {user && (
+                                                        <img
+                                                            src={user.photo}
+                                                            alt={user.name}
+                                                            className="user-avatar"
+                                                        />
+                                                    )}
+                                                    {name}
+                                                </span>
+                                            );
+                                        })}
                                     </div>
                                 </div>
                             </div>
