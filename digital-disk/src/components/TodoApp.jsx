@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import UserList from './UserList';
 
 
 // --- 1. TodoSummary Component (Left Sidebar) ---
@@ -45,22 +46,11 @@ const TodoSummary = ({ todos, setFilter, users }) => {
 
             <section className="container user-section">
                 <h3 className="title">Tasks by User</h3>
-                <ul className="user-list">
-                    {tasksByUser.map(user => (
-                        <li key={user.name} className="user-item">
-                            <div className="user-info">
-                                <img src={user.photo} alt={user.name} className="user-avatar" />
-                                <div className="user-details">
-                                    <span className="user-name">{user.name}</span>
-                                    <span className="user-job">{user.jobTitle}</span>
-                                </div>
-                            </div>
-                            <button className="user-count" onClick={() => setFilter(user.name)}>
-                                {user.activeTasks} Active
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <UserList
+                    users={tasksByUser}
+                    onUserClick={user => setFilter(user.name)}
+                    getButtonLabel={user => `${user.activeTasks} Active`}
+                />
             </section>
 
             <section className="container tag-section">
@@ -159,32 +149,6 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
         uniqueTags.includes(filter) ? `Tag: ${filter}` :
         users.some(u => u.name === filter) ? `Assigned to: ${filter}` : 'Filtered Tasks';
         
-    // Component for handling user assignment selection
-    const UserAssignment = ({ users, selectedUsers, onToggle }) => {
-        const selectedNames = selectedUsers.map(u => u.name);
-        return (
-            <div className="user-assignment">
-                <span className="assignment-label">Assign to:</span>
-                <div className="user-chips-container">
-                    {users.map(user => (
-                        <button
-                            key={user.name}
-                            className={`user-chip ${selectedNames.includes(user.name) ? 'active' : ''}`}
-                            onClick={() => onToggle(user)}
-                        >
-                            <img
-                                src={user.photo}
-                                alt={user.name}
-                                className="user-avatar"
-                            />
-                            {selectedNames.includes(user.name) ? '✔' : ''} {user.name}
-                        </button>
-                    ))}
-                </div>
-            </div>
-        );
-    };
-
     return (
         <div className="todo-section">
             <h1 className="page-title">Task Board</h1>
@@ -233,10 +197,10 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                     </div>
                     
                     {/* User Assignment Dropdown */}
-                    <UserAssignment 
-                        users={users} 
-                        selectedUsers={selectedUsers} 
-                        onToggle={handleUserToggle} 
+                    <UserList
+                        users={users}
+                        onUserClick={user => handleUserToggle(user)}
+                        getButtonLabel={user => selectedUsers.some(u => u.name === user.name) ? '✔' : ''}
                     />
                 </div>
 
@@ -297,21 +261,23 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                                         ))}
                                     </div>
                                     <div className="todo-assignees">
-                                        {todo.assignedTo && todo.assignedTo.map(name => {
-                                            const user = users.find(u => u.name === name);
-                                            return (
-                                                <span key={name} className="assignee-chip" onClick={() => setFilter(`${name}`)}>
-                                                    {user && (
-                                                        <img
-                                                            src={user.photo}
-                                                            alt={user.name}
-                                                            className="user-avatar"
-                                                        />
-                                                    )}
-                                                    {name}
-                                                </span>
-                                            );
-                                        })}
+                                        <ul className="user-list">
+                                            {todo.assignedTo && todo.assignedTo.map(name => {
+                                                const user = users.find(u => u.name === name);
+                                                if (!user) return null;
+                                                return (
+                                                    <li key={name} className="user-item">
+                                                        <div className="user-info">
+                                                            <img src={user.photo} alt={user.name} className="user-avatar" />
+                                                            <div className="user-details">
+                                                                <span className="user-name">{user.name}</span>
+                                                                <span className="user-job">{user.jobTitle}</span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
