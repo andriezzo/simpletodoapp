@@ -177,4 +177,43 @@ textarea {
 
     }
 
+    .tags-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: var(--space-xs);
+        flex-wrap: wrap;
+        width: 100%;
+
+        .tag-chip {
+            background-color: transparent;
+            color: var(--c-primary-dark-1);
+            border: 1px solid var(--c-primary-light-1);
+            padding: var(--space-xxs) var(--space-xs);
+            border-radius: var(--br-l);
+            font-size: var(--fs-small);
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: var(--space-xxs);
+
+            .tag-remove {
+                font-weight: var(--fw-bold);
+                cursor: pointer;
+                transition: color 0.2s ease;
+                background-color: transparent;
+                border: none;
+                font-size: var(--fs-body);
+                color: var(--c-primary-dark-1);
+                line-height: 1;
+
+                &:hover {
+                    color: var(--c-primary-dark-2);
+                }
+            }
+        }
+    }
+
 }

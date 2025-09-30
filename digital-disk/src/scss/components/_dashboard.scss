@@ -75,15 +75,15 @@
                 }
 
                 .total {
-                    color: var(--c-secondary-light-1);
-                    border: 2px solid var(--c-secondary-light-1);
-                    background-color: var(--c-secondary-light-2);
+                    color: var(--c-black-transparent-1);
+                    border: 2px solid var(--c-grey-1);
+                    background-color: var(--c-grey-5);
                 }
 
                 .active {
-                    color: var(--c-primary-light-1);
-                    border: 2px solid var(--c-primary-light-1);
-                    background-color: var(--c-primary-light-2);
+                    color: var(--c-secondary-light-1);
+                    border: 2px solid var(--c-secondary-light-1);
+                    background-color: var(--c-secondary-light-2);
                 }
 
                 .completed {
@@ -110,6 +110,49 @@
         }
     }
 
+
+  .tag-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: var(--space-s);
+
+    .title {
+        font-size: var(--fs-h3);
+        font-weight: var(--fw-bold);
+        color: var(--c-secondary-dark-2);
+        
+    }
+
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: var(--space-xs);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .tag-item {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-xxs);
+        padding: var(--space-xs) var(--space-xs);
+        border: 1px solid var(--c-primary-light-1);
+        border-radius: var(--br-l);
+        background-color: transparent;
+        font-size: var(--fs-small);
+        color: var(--c-primary-dark-2);
+        cursor: pointer;
+    }
+
+  }
 }
 
 /* ********************* */
@@ -185,7 +228,7 @@
 
     .todo-item {
         padding: var(--space-xxs) var(--space-m);
-        border: 1px solid var(--c-grey-2);
+        border: 2px solid var(--c-secondary-light-1);
         border-radius: var(--br-m);
         font-size: var(--fs-body);
         font-weight: var(--fw-normal);
@@ -216,9 +259,18 @@
 
         .todo-content {
             flex: 1;
-            
             word-break: break-word;
             padding: var(--space-xs);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: var(--space-xxs);
+
+            &> * {
+                width: 100%;
+            }
 
             .todo-text {
                 font-size: var(--fs-body);
@@ -230,6 +282,39 @@
                 font-size: var(--fs-small);
                 color: var(--c-black-transparent-1);
                 margin-top: var(--space-xxs);
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                gap: var(--space-xxs);
+
+                .todo-tags {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    align-items: center;
+                    gap: var(--space-xs);
+                    flex-wrap: wrap;
+
+                    .tag-chip {
+                        background-color: transparent;
+                        color: var(--c-primary-dark-1);
+                        border: 1px solid var(--c-primary-light-1);
+                        padding: var(--space-xxs) var(--space-xs);
+                        border-radius: var(--br-l);
+                        font-size: var(--fs-xsmall);
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        gap: var(--space-xxs);
+                    }
+                }
+
+                .todo-assignees {
+                  width: 100%;
+                }
             }
         }
 
@@ -267,6 +352,16 @@
             .todo-meta-details {
                 color: var(--c-green-dark-2);
                 font-style: italic;
+
+                .todo-tags {
+                    
+
+                    .tag-chip {
+                        color: var(--c-black-transparent-3);
+                        border: 1px solid var(--c-grey-3);
+                        
+                    }
+                }
             }
 
             .user-item {
@@ -316,7 +411,7 @@
             background-color: var(--c-white-transparent-2);
             border: 1px solid var(--c-grey-2);
             border-radius: var(--br-m);
-            padding: var(--space-xxs) var(--space-xxs);
+            padding: var(--space-s) var(--space-s);
 
 
             .user-info {
@@ -361,8 +456,8 @@
 
             .user-count {
                 font-size: var(--fs-small);
-                font-weight: 500;
-                color: var(--c-secondary-dark-2);
+                font-weight: var(--fw-semibold);
+                color: var(--c-secondary-dark-1);
                 background-color: transparent;
                 border: 0;
             }
@@ -378,6 +473,8 @@
       grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: var(--space-xs);
         .user-item {
+            padding: var(--space-xxs) var(--space-xxs);
+
             .user-avatar {
                   width: 24px;
                   height: 24px;
@@ -400,6 +497,8 @@
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         gap: var(--space-xs);
         .user-item {
+            padding: var(--space-xxs) var(--space-xxs);
+
             .user-avatar {
                   width: 20px;
                   height: 20px;
