@@ -11,6 +11,13 @@
     gap: var(--space-xs);
 
     width: 100%;
+
+    .field-legend {
+        font-size: var(--fs-xsmall);
+        font-weight: var(--fw-norma);
+        color: var(--c-black-transparent-1);
+        margin-bottom: var(--space-xxs);
+    }
 }
 
 input[type="text"], 
