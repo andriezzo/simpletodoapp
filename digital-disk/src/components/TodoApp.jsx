@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
+import TodoItem from './TodoItem';
+import TodoInputForm from './TodoInputForm'; // Import the new component
 
 
 // --- 1. TodoSummary Component (Left Sidebar) ---
@@ -78,13 +80,7 @@ const TodoSummary = ({ todos, setFilter, users }) => {
 
 // --- 2. TodoList Component (Right Main Area) ---
 const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, uniqueTags, users }) => {
-    const [inputValue, setInputValue] = useState('');
-    const [tagValue, setTagValue] = useState('');
-    const [showTags, setShowTags] = useState(false);
-    const [selectedUsers, setSelectedUsers] = useState([]);
-    const [inputTagInput, setInputTagInput] = useState('');
 
-    // Logic to filter the list based on the current filter state
     const getFilteredTodos = () => {
         if (filter === 'active') {
             return todos.filter(todo => !todo.completed);
@@ -101,62 +97,6 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
         return todos;
     };
 
-    // Handler for adding a task
-    const handleAddTodo = () => {
-      const assignedUserNames = selectedUsers.map(user => user.name);
-
-      // Combine tagValue and inputTagInput
-      let tags = tagValue
-        .split(',')
-        .map(tag => tag.trim())
-        .filter(tag => tag !== '');
-
-      if (inputTagInput && !tags.includes(inputTagInput.trim())) {
-        tags.push(inputTagInput.trim());
-      }
-
-      addTodo(inputValue, tags.join(', '), assignedUserNames);
-      setInputValue('');
-      setTagValue('');
-      setInputTagInput('');
-      setSelectedUsers([]);
-    };
-
-    // Handlers for tag autocomplete
-    const handleTagInputFocus = () => { setShowTags(true); };
-    const handleTagInputBlur = () => { setTimeout(() => setShowTags(false), 200); };
-    const handleTagClick = (tag) => {
-      setTagValue(prevValue => {
-        const cleanedTag = tag.replace(/^#/, '');
-        if (prevValue.trim() === '') {
-            return `${cleanedTag}`;
-        } else {
-            return `${prevValue.trim()}, ${cleanedTag}`;
-        }
-      });
-      setShowTags(false);
-    };
-    
-    // Handler for assigning users
-    const handleUserToggle = (user) => {
-        setSelectedUsers(prevSelectedUsers => {
-            if (prevSelectedUsers.find(u => u.name === user.name)) {
-                return prevSelectedUsers.filter(u => u.name !== user.name);
-            } else {
-                return [...prevSelectedUsers, user];
-            }
-        });
-    };
-
-    // Filter suggestions based on current tag input
-    const currentInputTag = tagValue.split(',').pop()?.trim().toLowerCase().replace(/^#/, '') || '';
-    const filteredSuggestions = uniqueTags
-      .filter(tag =>
-        tag.toLowerCase().includes(inputTagInput.trim().toLowerCase()) &&
-        !tagValue.split(',').map(t => t.trim().toLowerCase()).includes(tag.toLowerCase())
-      )
-      .slice(0, 5);
-
     const filteredTodos = getFilteredTodos();
     const currentFilterLabel = 
         filter === 'all' ? 'All Tasks' :
@@ -169,113 +109,12 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
         <div className="todo-section">
             <h1 className="page-title">Task Board</h1>
             
-            {/* Input Section */}
-            <div className="input-section block">
-                <div className="input-group">
-
-                <input 
-                    type="text" 
-                    className="task-input"
-                    placeholder="New task description..." 
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()}
-                />  
-                </div>
-                
-                
-                <div className="input-group meta-inputs">
-                    {/* Tags Input with Autocomplete */}
-                    <div className="tags-input-group">
-                      <div className="field-legend tags-instructions">
-                        <legend>
-                          Select a suggested tag or add a new one and press Enter.
-                        </legend>
-                      </div>
-                      <div className="tags-list">
-                        {tagValue.split(',').map((tag, idx) => {
-                          const trimmed = tag.trim();
-                          if (!trimmed) return null;
-                          return (
-                            <span className="tag-chip tag-edit" key={idx}>
-                              {trimmed}
-                              <button
-                                type="button"
-                                className="tag-remove"
-                                onClick={() => {
-                                  const tags = tagValue.split(',').map(t => t.trim()).filter(Boolean);
-                                  tags.splice(idx, 1);
-                                  setTagValue(tags.join(', '));
-                                }}
-                                aria-label={`Remove tag ${trimmed}`}
-                              >
-                                ×
-                              </button>
-                            </span>
-                          );
-                        })}
-                        <input
-                          type="text"
-                          className="tags-input"
-                          placeholder="Add tags (e.g., urgent, design)"
-                          value={inputTagInput}
-                          onChange={e => setInputTagInput(e.target.value)}
-                          onFocus={handleTagInputFocus}
-                          onBlur={handleTagInputBlur}
-                          onKeyDown={e => {
-                            if (e.key === 'Enter' || e.key === ',') {
-                              e.preventDefault();
-                              const newTag = inputTagInput.trim();
-                              if (
-                                newTag &&
-                                !tagValue.split(',').map(t => t.trim()).includes(newTag)
-                              ) {
-                                setTagValue(tagValue ? `${tagValue}, ${newTag}` : newTag);
-                              }
-                              setInputTagInput('');
-                            }
-                          }}
-                        />
-                      </div>
-                      {showTags && filteredSuggestions.length > 0 && (
-                        <div className="tag-autocomplete">
-                          {filteredSuggestions.map(tag => (
-                            <span
-                              key={tag}
-                              className="tag-suggestion"
-                              onMouseDown={e => {
-                                e.preventDefault();
-                                const tags = tagValue.split(',').map(t => t.trim()).filter(Boolean);
-                                if (!tags.includes(tag)) {
-                                  setTagValue(tags.length ? `${tags.join(', ')}, ${tag}` : tag);
-                                }
-                                setInputTagInput('');
-                                setShowTags(false);
-                              }}
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    
-                    {/* User Assignment Dropdown */}
-                    <UserList
-                        users={users}
-                        onUserClick={user => handleUserToggle(user)}
-                        getButtonLabel={user => selectedUsers.some(u => u.name === user.name) ? '✔' : ''}
-                    />
-                </div>
-
-                <button 
-                    className="add-button button" 
-                    onClick={handleAddTodo}
-                    disabled={inputValue.trim() === ''}
-                >
-                    Add Task
-                </button>
-            </div>
+            {/* Input Section is now its own component */}
+            <TodoInputForm
+                addTodo={addTodo}
+                users={users}
+                uniqueTags={uniqueTags}
+            />
 
             {/* List and Filter Section */}
             <div className="list-filters">
@@ -303,53 +142,14 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                     <li className="empty-state card">No tasks found for the current filter.</li>
                 ) : (
                     filteredTodos.map(todo => (
-                        <li key={todo.id} className={`todo-item card ${todo.completed ? 'completed' : ''}`}>
-                            <label className="checkbox-container">
-                                <input 
-                                    type="checkbox" 
-                                    checked={todo.completed}
-                                    onChange={() => toggleTodo(todo.id)}
-                                />
-                                <span className="checkmark"></span>
-                            </label>
-                            
-                            <div className="todo-content">
-                                <span className="todo-text">{todo.text}</span>
-                                
-                                <div className="todo-meta-details">
-                                    <div className="todo-tags">
-                                        {todo.tags && todo.tags.map(tag => (
-                                            <span key={tag} className="tag-chip" onClick={() => setFilter(tag)}>
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                    <div className="todo-assignees">
-                                        <ul className="user-list">
-                                            {todo.assignedTo && todo.assignedTo.map(name => {
-                                                const user = users.find(u => u.name === name);
-                                                if (!user) return null;
-                                                return (
-                                                    <li key={name} className="user-item">
-                                                        <div className="user-info">
-                                                            <img src={user.photo} alt={user.name} className="user-avatar" />
-                                                            <div className="user-details">
-                                                                <span className="user-name">{user.name}</span>
-                                                                <span className="user-job">{user.jobTitle}</span>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                );
-                                            })}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button className="delete-btn" onClick={() => deleteTodo(todo.id)}>
-                                
-                            </button>
-                        </li>
+                        <TodoItem
+                            key={todo.id}
+                            todo={todo}
+                            users={users}
+                            toggleTodo={toggleTodo}
+                            deleteTodo={deleteTodo}
+                            setFilter={setFilter}
+                        />
                     ))
                 )}
             </ul>
