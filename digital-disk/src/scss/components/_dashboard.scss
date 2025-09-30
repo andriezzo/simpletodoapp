@@ -104,82 +104,7 @@
         align-items: flex-start;
         gap: var(--space-s);
 
-        .user-list {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            gap: var(--space-s);
 
-            list-style: none;
-            width: 100%;
-
-            .user-item {
-                width: auto;
-                flex: 1 1 50%;
-
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                text-align: center;
-                width: 80px;
-                
-                background-color: var(--c-white-transparent-2);
-                border: 1px solid var(--c-grey-2);
-                border-radius: var(--br-m);
-                padding: var(--space-xs);
-
-
-                .user-info {
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-                    text-align: center;
-
-                    .user-avatar {
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        object-fit: cover;
-                        border: 2px solid var(--c-secondary-light-1);
-                    }
-
-                    .user-details {
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: flex-start;
-                        margin-left: var(--space-xs);
-
-
-                        .user-name {
-                            font-size: var(--fs-body);
-                            font-weight: var(--fw-semibold);
-                            color: var(--c-secondary-dark-1);
-                            word-break: break-word;
-                        }
-
-                        .user-job {
-                            font-size: var(--fs-small);
-                            color: var(--c-black-transparent-1);
-                            word-break: break-word;
-                        }
-                    }   
-
-                }   
-
-                .user-count {
-                    font-size: var(--fs-small);
-                    font-weight: 500;
-                    color: var(--c-secondary-dark-2);
-                    background-color: transparent;
-                    border: 0;
-                }
-            }
-
-            
-        }
 
 
         }
@@ -275,6 +200,20 @@
         
         box-shadow: 0 1px 3px var(--c-black-transparent-3);
 
+        input[type="checkbox" i] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--c-green-base);
+            cursor: pointer;
+            border-radius: var(--br-l);
+            background-color: var(--c-white-2);
+            
+        }
+
+        .checkmark {
+            
+        }
+
         .todo-content {
             flex: 1;
             
@@ -329,9 +268,150 @@
                 color: var(--c-green-dark-2);
                 font-style: italic;
             }
+
+            .user-item {
+                background-color: var(--c-green-light-2);
+                border-color: var(--c-grey-2);
+                opacity: 0.5;
+
+                .user-name {
+                    color: var(--c-grey-4);
+                }
+                
+                .user-avatar {
+                    filter: grayscale(100%);
+                }
+            }
         }
 
     }
 
     
+}
+
+
+/* ********************* */
+/* ****** USER LIST ******* */
+
+
+    .user-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: var(--space-xs);
+
+        list-style: none;
+        width: 100%;
+
+        .user-item {
+            width: auto;
+            
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            
+            
+            background-color: var(--c-white-transparent-2);
+            border: 1px solid var(--c-grey-2);
+            border-radius: var(--br-m);
+            padding: var(--space-xxs) var(--space-xxs);
+
+
+            .user-info {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                text-align: left;
+
+                .user-avatar {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 2px solid var(--c-secondary-light-1);
+                }
+
+                .user-details {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: flex-start;
+                    margin-left: var(--space-xs);
+
+
+                    .user-name {
+                        font-size: var(--fs-body);
+                        font-weight: var(--fw-semibold);
+                        color: var(--c-secondary-dark-1);
+                        word-break: break-word;
+                    }
+
+                    .user-job {
+                        font-size: var(--fs-xsmall);
+                        color: var(--c-black-transparent-1);
+                        word-break: break-word;
+
+                    }
+                }   
+
+            }   
+
+            .user-count {
+                font-size: var(--fs-small);
+                font-weight: 500;
+                color: var(--c-secondary-dark-2);
+                background-color: transparent;
+                border: 0;
+            }
+        }
+
+        
+    }
+
+/* exeptions rules, hiding the job title */
+
+.input-section {
+    .user-list {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: var(--space-xs);
+        .user-item {
+            .user-avatar {
+                  width: 24px;
+                  height: 24px;
+                }   
+            .user-details {
+              .user-name {
+                  font-size: var(--fs-small);
+                }
+              .user-job {
+                display: none;
+              }
+            }
+        }
+    }
+}
+
+
+.todo-item {
+    .user-list {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: var(--space-xs);
+        .user-item {
+            .user-avatar {
+                  width: 20px;
+                  height: 20px;
+                }   
+            .user-details {
+              .user-name {
+                  font-size: var(--fs-small);
+                }
+              .user-job {
+                display: none;
+              }
+            }
+        }
+    }
 }
