@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 
 const TodoInputForm = ({ addTodo, users, uniqueTags }) => {
@@ -7,6 +7,12 @@ const TodoInputForm = ({ addTodo, users, uniqueTags }) => {
     const [showTags, setShowTags] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [inputTagInput, setInputTagInput] = useState('');
+
+    useEffect(() => {
+        if (inputTagInput && filteredSuggestions.length > 0) {
+            setShowTags(true);
+        }
+    }, [inputTagInput]);
 
     const handleAddTodo = () => {
         const assignedUserNames = selectedUsers.map(user => user.name);
