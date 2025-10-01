@@ -168,18 +168,22 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
 // --- 3. Main App Component (Entry Point) ---
 // This handles global state and layout structure.
 export default function TodoApp({ users }) {
+    // Initialize state with an empty array to match the server render
+    const [todos, setTodos] = useState([]);
 
-    // State management for the entire list, loading from localStorage on startup
-    const [todos, setTodos] = useState(() => {
-        if (typeof window === 'undefined') return [];
-        try {
-            const storedTodos = localStorage.getItem('react-todos');
-            return storedTodos ? JSON.parse(storedTodos) : [];
-        } catch (error) {
-            console.error("Could not load todos from local storage", error);
-            return [];
+    // NEW: useEffect to load from localStorage after the component mounts
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                const storedTodos = localStorage.getItem('react-todos');
+                if (storedTodos) {
+                    setTodos(JSON.parse(storedTodos));
+                }
+            } catch (error) {
+                console.error("Could not load todos from local storage", error);
+            }
         }
-    });
+    }, []); // The empty array [] ensures this runs only once on mount
 
     const [filter, setFilter] = useState('all');
     const [uniqueTags, setUniqueTags] = useState([]);
