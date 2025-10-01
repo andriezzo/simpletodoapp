@@ -117,6 +117,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                 uniqueTags={uniqueTags}
             />
 
+            <div className="todo-list-container container">
             {/* List and Filter Section */}
             <div className="list-filters">
                 <h2 className="filter-label">{currentFilterLabel} ({filteredTodos.length})</h2>
@@ -154,6 +155,7 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
                     ))
                 )}
             </ul>
+            </div>
         </div>
     );
 };

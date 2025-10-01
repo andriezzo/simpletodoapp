@@ -184,36 +184,43 @@
     justify-content: center;
     align-items: center;
     gap: var(--space-m);
-    padding: var(--space-m);
+    padding: var(--space-xs);
     border-radius: var(--br-s);
 
     .filter-label {
         font-size: var(--fs-body);
         font-weight: var(--fw-semibold);
-        color: var(--c-black-1);
+        color: var(--c-secondary-base);
     }
 
-    .filter-button {
-        padding: var(--space-s) var(--space-m);
+    .filter-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: var(--space-s);
+    }
+
+    .filter-btn {
+        padding: var(--space-xs) var(--space-s);
         border: none;
         border-radius: var(--br-m);
         font-size: var(--fs-body);
         font-weight: var(--fw-semibold);
-        color: var(--c-grey-1);
-        background-color: var(--c-white-transparent-2);
+        color: var(--c-secondary-dark-2);
+        background-color: var(--c-secondary-light-1);
         cursor: pointer;
         transition: background-color 0.2s, color 0.2s;
 
         &:hover {
-            background-color: var(--color-primary-lightest);
-            color: var(--color-primary);
+            background-color: var(--c-secondary-light-1);
+            color: var(--c-secondary-light-2);
         }
 
         &.active {
-            background-color: var(--color-primary);
-            color: var(--color-text-on-primary);
-            border-color: var(--color-primary);
-        }
+            background-color: var(--c-secondary-base);
+            color: var(--c-secondary-light-2);
+            }
     }
 }
 

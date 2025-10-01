@@ -45,7 +45,7 @@
 
   /* Violet Palette */
   --c-violet-base: oklch(36% 0.09 292);
-  --c-violet-light-1: oklch(from var(--c-violet-base) calc(L + 0.2) calc(C * 0.7) H);
+  --c-violet-light-1: oklch(from var(--c-violet-base) calc(L + 0.55) calc(C * 0.5) H);
   --c-violet-light-2: oklch(from var(--c-violet-base) calc(L + 0.6) calc(C * 0.3) H); /* Exaggerated and desaturated */
   --c-violet-dark-1: oklch(from var(--c-violet-base) calc(L - 0.01) C H);
   --c-violet-dark-2: oklch(from var(--c-violet-base) calc(L - 0.02) C H); /* Exaggerated darker */
