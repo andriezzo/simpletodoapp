@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import UserList from './UserList';
 import TodoItem from './TodoItem';
 import TodoInputForm from './TodoInputForm'; // Import the new component
@@ -203,20 +204,21 @@ export default function TodoApp({ users }) {
 
     // Function to add a new todo item
     const addTodo = (inputValue, tagValue, assignedTo) => {
-        if (inputValue.trim() !== '') {
+        const cleanText = DOMPurify.sanitize(inputValue); // Sanitize the main text
+        if (cleanText.trim() !== '') {
             const tags = tagValue
                 .split(',')
-                .map(tag => tag.trim().replace(/^#/, ''))
+                .map(tag => DOMPurify.sanitize(tag.trim())) // Sanitize each tag
                 .filter(tag => tag !== '');
 
             const newTodo = {
                 id: Date.now(),
-                text: inputValue,
+                text: cleanText, // Use the sanitized text
                 completed: false,
-                tags: tags,
+                tags: tags, // Use the sanitized tags
                 assignedTo: assignedTo || [],
             };
-            setTodos([...todos, newTodo]);
+            setTodos(prevTodos => [...prevTodos, newTodo]);
         }
     };
 
