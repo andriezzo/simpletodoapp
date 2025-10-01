@@ -111,8 +111,10 @@ textarea {
     align-items: center;
     gap: var(--space-xl);
 
-    border: 1px solid var(--c-grey-5);
+    border: 2px solid var(--c-primary-light-2);
     padding: var(--space-l);
+    width: 90%;
+    margin: 0 auto;
 
     .button {
         padding: var(--space-m) var(--space-l);
@@ -125,17 +127,17 @@ textarea {
         box-shadow: 0 2px 4px var(--c-black-transparent-3);
 
         &.add-button {
-            background-color: var(--c-secondary-base);
+            background-color: var(--c-primary-base);
             color: var(--c-white-1);
 
             &:hover {
-                background-color: var(--c-secondary-light-1);
+                background-color: var(--c-primary-light-1);
                 box-shadow: 0 4px 8px var(--c-black-transparent-4);
             }
 
             &:disabled {
-                background-color: var(--c-secondary-light-2);
-                color: var(--c-black-transparent-1);
+                background-color: var(--c-primary-light-1);
+                color: var(--c-white-2);
                 cursor: not-allowed;
                 box-shadow: none;
             }
