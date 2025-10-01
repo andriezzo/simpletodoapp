@@ -80,21 +80,25 @@ const TodoSummary = ({ todos, setFilter, users }) => {
 
 // --- 2. TodoList Component (Right Main Area) ---
 const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, uniqueTags, users }) => {
+    // All form-related state and handlers are now gone from here!
 
     const getFilteredTodos = () => {
+        // Create a reversed copy to show newest first, without mutating the original array
+        const sortedTodos = [...todos].reverse();
+
         if (filter === 'active') {
-            return todos.filter(todo => !todo.completed);
+            return sortedTodos.filter(todo => !todo.completed);
         }
         if (filter === 'completed') {
-            return todos.filter(todo => todo.completed);
+            return sortedTodos.filter(todo => todo.completed);
         }
         if (uniqueTags.includes(filter)) {
-            return todos.filter(todo => todo.tags.map(t => t.toLowerCase()).includes(filter.toLowerCase()));
+            return sortedTodos.filter(todo => todo.tags.map(t => t.toLowerCase()).includes(filter.toLowerCase()));
         }
         if (users.some(u => u.name === filter)) {
-            return todos.filter(todo => todo.assignedTo.includes(filter));
+            return sortedTodos.filter(todo => todo.assignedTo.includes(filter));
         }
-        return todos;
+        return sortedTodos;
     };
 
     const filteredTodos = getFilteredTodos();
