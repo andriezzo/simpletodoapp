@@ -106,8 +106,9 @@ const TodoList = ({ todos, addTodo, toggleTodo, deleteTodo, filter, setFilter, u
         users.some(u => u.name === filter) ? `Assigned to: ${filter}` : 'Filtered Tasks';
         
     return (
-        <div className="todo-section">
-            <h1 className="page-title">Task Board</h1>
+        <div className="todo-section block">
+            <h1 className="page-title">Simple To-Do App</h1>
+            <p className="page-subtitle">Manage your tasks efficiently with tags and user assignments.</p>
             
             {/* Input Section is now its own component */}
             <TodoInputForm
@@ -230,10 +231,10 @@ export default function TodoApp({ users }) {
     return (
         <div className="dashboard-grid container">
             
-            {/* Left side: Summary/Dashboard */}
+            {/*  Summary/Dashboard */}
             <TodoSummary todos={todos} setFilter={setFilter} users={users} />
 
-            {/* Right side: Input and List */}
+            {/*  Input and List */}
             <TodoList
                 todos={todos}
                 addTodo={addTodo}

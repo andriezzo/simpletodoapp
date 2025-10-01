@@ -8,7 +8,7 @@
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xs);
+    gap: var(--space-xxs);
 
     width: 100%;
 
@@ -109,10 +109,13 @@ textarea {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: var(--space-m);
+    gap: var(--space-xl);
+
+    border: 1px solid var(--c-grey-5);
+    padding: var(--space-l);
 
     .button {
-        padding: var(--space-s) var(--space-m);
+        padding: var(--space-m) var(--space-l);
         border: none;
         border-radius: var(--br-m);
         font-size: var(--fs-body);
@@ -131,7 +134,7 @@ textarea {
             }
 
             &:disabled {
-                background-color: var(--c-grey-4);
+                background-color: var(--c-secondary-light-2);
                 color: var(--c-black-transparent-1);
                 cursor: not-allowed;
                 box-shadow: none;
@@ -142,16 +145,16 @@ textarea {
 
 
     .tag-autocomplete {
-        background-color: var(--c-grey-5);
+        background-color: var(--c-white-2);
         border: 1px solid var(--c-grey-1);
         border-radius: var(--br-s);
-        max-height: 150px;
+        max-height: 360px;
         overflow-y: auto;
         width: auto;
-        max-width: 280px;
+        max-width: 360px;
         box-shadow: 0 2px 4px var(--c-black-transparent-3);
         z-index: 10;
-        position: absolute;
+        position: relative;
         margin-top: var(--space-xxs);
         list-style: none;
         padding: var(--space-s) var(--space-s);
@@ -170,9 +173,12 @@ textarea {
 
         .tag-suggestion {
             padding: var(--space-xs) var(--space-xs);
-            border: 1px solid var(--c-secondary-light-1);
+            border: 1px solid var(--c-primary-light-1);
+            color: var(--c-primary-dark-1);
+            font-size: var(--fs-small);
+            cursor: pointer;
             border-radius: var(--br-l);
-            background-color: var(--c-grey-4);
+            background-color: transparent;
         }
 
     }

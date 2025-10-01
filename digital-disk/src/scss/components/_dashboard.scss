@@ -4,7 +4,7 @@
 
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: row-reverse ;
+    flex-direction: row-reverse;
     justify-content: center;
     align-items: flex-start;
     gap: var(--space-m);
@@ -15,11 +15,18 @@
         font-size: var(--fs-h2);
         font-weight: var(--fw-bold);
         color: var(--c-black-1);
-        margin-bottom: var(--space-m);
+        
+    }
+
+    .page-subtitle {
+        font-size: var(--fs-body);
+        font-weight: var(--fw-normal);
+        color: var(--c-black-transparent-1);
+        
     }
 
     .summary {
-        flex: 1 1 300px;
+        flex: 1 1 40%;
         background-color: var(--c-white-2);
         padding: var(--space-m);
         border-radius: var(--br-s);
@@ -42,19 +49,19 @@
 
             .status-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 
-                gap: var(--space-s);
+                gap: var(--space-xs);
 
                 width: 100%;
 
                 .stat-box {
-                    padding: var(--space-s) var(--space-m);
+                    padding: var(--space-s) var(--space-s);
                     background-color: var(--c-white-transparent-2);
                     border: 1px solid var(--c-grey-2);
                     border-radius: var(--br-m);
                     text-align: center;
-                    font-size: var(--fs-body);
+                    font-size: var(--fs-small);
                     font-weight: var(--fw-semibold);
                     line-height: 1;
                     color: var(--c-grey-1);
@@ -158,8 +165,8 @@
 /* ********************* */
 
 .todo-section {
-    flex: 2 1 60%;
-    background-color: transparent;
+    flex: 1 1 60%;
+    background-color: var(--c-white-2);
     padding: var(--space-xs);
     display: flex;
     flex-direction: column;
@@ -178,9 +185,7 @@
     align-items: center;
     gap: var(--space-m);
     padding: var(--space-m);
-    background-color: var(--c-white-2);
     border-radius: var(--br-s);
-    box-shadow: 0 2px 4px var(--c-black-transparent-4);
 
     .filter-label {
         font-size: var(--fs-body);
@@ -221,7 +226,7 @@
     align-items: stretch;
     gap: var(--space-m);
     padding: var(--space-m);
-    background-color: var(--c-grey-5);
+    background-color: transparent;
     border-radius: var(--br-s);
 
     list-style: none;
@@ -233,7 +238,7 @@
         font-size: var(--fs-body);
         font-weight: var(--fw-normal);
         color: var(--c-black-1);
-        background-color: var(--c-white-transparent-2);
+        background-color: var(--c-secondary-light-2);
 
         display: flex;
         flex-direction: row;
@@ -273,7 +278,7 @@
             }
 
             .todo-text {
-                font-size: var(--fs-body);
+                font-size: var(--fs-small);
                 font-weight: var(--fw-normal);
                 color: var(--c-black-1);
             }
@@ -298,7 +303,7 @@
                     flex-wrap: wrap;
 
                     .tag-chip {
-                        background-color: transparent;
+                        background-color: var(--c-white-transparent-2);
                         color: var(--c-primary-dark-1);
                         border: 1px solid var(--c-primary-light-1);
                         padding: var(--space-xxs) var(--space-xs);
@@ -391,7 +396,7 @@
 
     .user-list {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: var(--space-xs);
 
         list-style: none;
@@ -494,18 +499,18 @@
 
 .todo-item {
     .user-list {
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
         gap: var(--space-xs);
         .user-item {
             padding: var(--space-xxs) var(--space-xxs);
 
             .user-avatar {
-                  width: 20px;
-                  height: 20px;
+                  width: 12px;
+                  height: 12px;
                 }   
             .user-details {
               .user-name {
-                  font-size: var(--fs-small);
+                  font-size: var(--fs-xsmall);
                 }
               .user-job {
                 display: none;
