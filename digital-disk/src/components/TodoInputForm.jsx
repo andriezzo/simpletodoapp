@@ -7,6 +7,7 @@ const TodoInputForm = ({ addTodo, users, uniqueTags }) => {
     const [showTags, setShowTags] = useState(false);
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [inputTagInput, setInputTagInput] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false); // Add this new state
 
     useEffect(() => {
         if (inputTagInput && filteredSuggestions.length > 0) {
@@ -15,16 +16,27 @@ const TodoInputForm = ({ addTodo, users, uniqueTags }) => {
     }, [inputTagInput]);
 
     const handleAddTodo = () => {
-        const assignedUserNames = selectedUsers.map(user => user.name);
-        let tags = tagValue.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
-        if (inputTagInput && !tags.includes(inputTagInput.trim())) {
-            tags.push(inputTagInput.trim());
+        if (isSubmitting) return; // Prevent submission if already in progress
+
+        setIsSubmitting(true); // Disable button
+
+        try {
+            const assignedUserNames = selectedUsers.map(user => user.name);
+            let tags = tagValue.split(',').map(tag => tag.trim()).filter(tag => tag !== '');
+            if (inputTagInput && !tags.includes(inputTagInput.trim())) {
+                tags.push(inputTagInput.trim());
+            }
+            addTodo(inputValue, tags.join(', '), assignedUserNames);
+            
+            // Reset form fields
+            setInputValue('');
+            setTagValue('');
+            setInputTagInput('');
+            setSelectedUsers([]);
+        } finally {
+            // Re-enable the button after a short delay to prevent rapid clicks
+            setTimeout(() => setIsSubmitting(false), 500);
         }
-        addTodo(inputValue, tags.join(', '), assignedUserNames);
-        setInputValue('');
-        setTagValue('');
-        setInputTagInput('');
-        setSelectedUsers([]);
     };
 
     const handleTagInputFocus = () => setShowTags(true);
@@ -137,9 +149,9 @@ const TodoInputForm = ({ addTodo, users, uniqueTags }) => {
             <button
                 className="add-button button"
                 onClick={handleAddTodo}
-                disabled={inputValue.trim() === ''}
+                disabled={inputValue.trim() === '' || isSubmitting} // Update disabled logic
             >
-                Add Task
+                {isSubmitting ? 'Adding...' : 'Add Task'}
             </button>
         </div>
     );
