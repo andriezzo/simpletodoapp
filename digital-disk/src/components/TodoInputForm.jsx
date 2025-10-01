@@ -67,6 +67,7 @@ const TodoInputForm = ({ addTodo, users, uniqueTags }) => {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTodo()}
+                    maxLength="200" // Add a max length
                 />
             </div>
 
@@ -114,6 +115,7 @@ const TodoInputForm = ({ addTodo, users, uniqueTags }) => {
                                 setInputTagInput('');
                             }
                         }}
+                        maxLength="25" // Add a max length for individual tags
                     />
                 </div>
                 {showTags && filteredSuggestions.length > 0 && (
