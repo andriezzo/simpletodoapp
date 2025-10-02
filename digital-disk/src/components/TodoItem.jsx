@@ -1,6 +1,10 @@
 import React from 'react';
+import UserList from './UserList'; // 1. Import the UserList component
 
 const TodoItem = ({ todo, users, toggleTodo, deleteTodo, setFilter }) => {
+  // 2. Prepare the list of assigned users
+  const assignedUsers = users.filter(user => todo.assignedTo.includes(user.name));
+
   return (
     <li className={`todo-item card ${todo.completed ? 'completed' : ''}`}>
       <label className="checkbox-container">
@@ -24,23 +28,11 @@ const TodoItem = ({ todo, users, toggleTodo, deleteTodo, setFilter }) => {
             ))}
           </div>
           <div className="todo-assignees">
-            <ul className="user-list">
-              {todo.assignedTo && todo.assignedTo.map(name => {
-                const user = users.find(u => u.name === name);
-                if (!user) return null;
-                return (
-                  <li key={name} className="user-item">
-                    <div className="user-info">
-                      <img src={user.photo} alt={user.name} className="user-avatar" />
-                      <div className="user-details">
-                        <span className="user-name">{user.name}</span>
-                        <span className="user-job">{user.jobTitle}</span>
-                      </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
+            {/* 3. Use the UserList component here */}
+            <UserList
+              users={assignedUsers}
+              onUserClick={(user) => setFilter(user.name)}
+            />
           </div>
         </div>
       </div>

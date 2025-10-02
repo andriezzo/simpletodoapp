@@ -14,7 +14,7 @@ export default function UserList({ users, onUserClick, getButtonLabel, selectedU
                     onClick={() => onUserClick(user)}
                 >
                     <div className="user-info">
-                        {/* Prepend the BASE_URL to the image src */}
+                        {/* This line is the crucial fix */}
                         <img src={`${BASE_URL}${user.photo}`} alt={user.name} className="user-avatar" />
                         <div className="user-details">
                             <span className="user-name">{user.name}</span>
