@@ -54,13 +54,44 @@ Follow these instructions to get a copy of the project up and running on your lo
     npm install
     ```
 
-3. **Run the development server:**
+3. **Configure Environment Variables:**
+    Create a new file named `.env` in the root of the project and add your production domain. This is required for the production build to generate correct absolute URLs for meta tags.
+
+    ```
+    # .env
+    PUBLIC_SITE_URL="https://tools.androe.com"
+    ```
+
+4. **Run the development server:**
 
     ```bash
     npm run dev
     ```
 
-    The application will be available at `http://localhost:4321`. The server will automatically reload when you make changes to the code.
+    The application will be available at `http://localhost:4321`.
+
+### Deploying to a Subdirectory
+
+This project is configured to be deployed to a subdirectory. If you need to change it, you must update the following two files before building:
+
+1. **`astro.config.mjs`**: Set the `base` property to your subdirectory name.
+
+    ```javascript
+    // astro.config.mjs
+    export default defineConfig({
+      base: '/simpletodoapp', // Set this to your subdirectory name
+      // ...
+    });
+    ```
+
+2. **`.env`**: Ensure the `PUBLIC_SITE_URL` is set to your root domain.
+
+    ```
+    # .env
+    PUBLIC_SITE_URL="https://tools.androe.com"
+    ```
+
+After configuring these files, run `npm run build` to generate the production files in the `dist/` directory.
 
 ## 📦 Building for Production
 
@@ -71,18 +102,6 @@ npm run build
 ```
 
 This will generate a static version of your site in the `dist/` directory. These are the files you can deploy to any static hosting service.
-
-### Deploying to a Subdirectory
-
-If you are deploying the app to a subdirectory (e.g., `yourdomain.com/my-app/`), you must configure the `base` property in the `astro.config.mjs` file before building:
-
-```javascript
-// astro.config.mjs
-export default defineConfig({
-  base: '/my-app', // Set this to your subdirectory name
-  // ...
-});
-```
 
 ## 📂 Project Structure
 
