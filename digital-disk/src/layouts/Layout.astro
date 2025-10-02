@@ -12,6 +12,10 @@ interface Props {
 
 const { title, description } = Astro.props;
 
+// Define the site-wide title and description
+const siteTitle = "Simple To-Do App";
+const siteDescription = "A modern, feature-rich to-do application with user assignments, a tagging system, and a dashboard summary.";
+
 // SCSS Import (Ensure the path is correct based on your file tree: src/layouts -> src/scss)
 import '../scss/styles.scss';
 ---
@@ -19,7 +23,7 @@ import '../scss/styles.scss';
 <!doctype html>
 <html lang="en">
 	<!-- Renders the Head component, passing in required props -->
-	<Head title={title} description={description} />
+	<Head title={siteTitle} description={siteDescription} />
 	
 	<body>
         <!-- Global Header -->
